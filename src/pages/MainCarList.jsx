@@ -1,78 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getCarsAPI } from '../api';
-import { ACTIONS } from '../constant/action';
-import { CARS_FUEL_TYPE, CARS_SEGMENT_CATEGORIES } from '../constant/mock';
+import { CARS_SEGMENT_CATEGORIES } from '../constant/mock';
+import useGetCarList from '../hooks/useGetCarList';
 
 const MainCarList = () => {
-  const [states, setStates] = useState({
-    isLoading: false,
-    isError: false,
-    isSuccess: false,
-  });
-  const [carsResponseData, setCarsResponseData] = useState([]);
-
+  const { carList, getCarList } = useGetCarList();
   const [segment, setSegment] = useState('');
 
-  const dispatch = action => {
-    switch (action) {
-      case ACTIONS.GET_CAR_LIST_LOADING:
-        return {
-          isLoading: true,
-          isError: false,
-          isSuccess: false,
-        };
-      case ACTIONS.GET_CAR_LIST_SUCCESS:
-        return {
-          isLoading: false,
-          isError: false,
-          isSuccess: true,
-        };
-      case ACTIONS.GET_CAR_LIST_ERROR:
-        return {
-          isLoading: false,
-          isError: true,
-          isSuccess: false,
-        };
-      default:
-        throw new Error(`Unhandeled Action Type: ${action.type}`);
-    }
-  };
-
-  const getSegmentName = segment => {
-    return CARS_SEGMENT_CATEGORIES.find(category => category.value === segment)
-      ?.name;
-  };
-
-  const getFuelTypeName = fuelType => {
-    return CARS_FUEL_TYPE.find(type => type.value === fuelType)?.name;
-  };
-
-  const getCars = async () => {
-    try {
-      setStates(dispatch(ACTIONS.GET_CAR_LIST_LOADING));
-      const response = await getCarsAPI({ segment });
-      setStates(dispatch(ACTIONS.GET_CAR_LIST_SUCCESS));
-      setCarsResponseData(
-        response?.data?.payload?.map(list => ({
-          ...list,
-          amount: list.amount.toLocaleString(),
-          attribute: {
-            ...list.attribute,
-            segment: getSegmentName(list.attribute.segment),
-            fuelType: getFuelTypeName(list.attribute.fuelType),
-          },
-        })) || []
-      );
-    } catch (err) {
-      setStates(dispatch(ACTIONS.GET_CAR_LIST_ERROR));
-      setCarsResponseData(err?.response);
-    }
-  };
-
   useEffect(() => {
-    getCars();
+    getCarList(segment);
   }, [segment]);
 
   return (
@@ -91,7 +28,7 @@ const MainCarList = () => {
         })}
       </CategorySection>
       <CarList>
-        {carsResponseData?.map((car, idx) => (
+        {carList?.map((car, idx) => (
           <Link key={car.id} to={`/cars/${car.id}`}>
             <CarCardItem>
               <ContentBox>
