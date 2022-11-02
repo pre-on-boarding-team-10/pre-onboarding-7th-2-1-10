@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const MainCarList = () => {
   return (
     <MainCarListLayout>
-      <CategoryBox>
+      <CategorySection>
         <CategoryButton type="button">전체</CategoryButton>
         <CategoryButton type="button">대형</CategoryButton>
         <CategoryButton type="button">중형</CategoryButton>
@@ -14,7 +14,7 @@ const MainCarList = () => {
         <CategoryButton type="button">소형</CategoryButton>
         <CategoryButton type="button">소형</CategoryButton>
         <CategoryButton type="button">소형</CategoryButton>
-      </CategoryBox>
+      </CategorySection>
       <CarList>
         {Array(30)
           .fill(0)
@@ -44,7 +44,7 @@ export default MainCarList;
 
 const MainCarListLayout = styled.main``;
 
-const CategoryBox = styled.section``;
+const CategorySection = styled.section``;
 
 const CategoryButton = styled.button``;
 
