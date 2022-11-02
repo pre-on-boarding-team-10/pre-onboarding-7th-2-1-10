@@ -19,12 +19,12 @@ const useGetCarDetail = () => {
       case ACTIONS.GET_CAR_DETAIL_LOADING:
         return setDetailStates({
           isLoading: true,
-          hasData: false,
+          noData: false,
         });
       case ACTIONS.GET_CAR_DETAIL_SUCCESS:
         return setDetailStates({
           isLoading: !!action.isCarListLoading,
-          hasData: !!action.data,
+          noData: !action.data,
         });
       default:
         throw new Error(`Unhandeled Action Type: ${action.type}`);

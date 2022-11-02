@@ -25,18 +25,21 @@ const useGetCarList = () => {
           isLoading: true,
           isError: false,
           isSuccess: false,
+          noData: false,
         });
       case ACTIONS.GET_CAR_LIST_SUCCESS:
         return setStates({
           isLoading: false,
           isError: false,
           isSuccess: true,
+          noData: !action.data.length,
         });
       case ACTIONS.GET_CAR_LIST_ERROR:
         return setStates({
           isLoading: false,
           isError: true,
           isSuccess: false,
+          noData: false,
         });
       default:
         throw new Error(`Unhandeled Action Type: ${action.type}`);
@@ -47,7 +50,10 @@ const useGetCarList = () => {
     try {
       dispatch({ type: ACTIONS.GET_CAR_LIST_LOADING });
       const response = await getCarListAPI({ segment });
-      dispatch({ type: ACTIONS.GET_CAR_LIST_SUCCESS });
+      dispatch({
+        type: ACTIONS.GET_CAR_LIST_SUCCESS,
+        data: response?.data?.payload,
+      });
       setCarList(getAppearingCarList(response?.data?.payload) || []);
     } catch (err) {
       dispatch({ type: ACTIONS.GET_CAR_LIST_ERROR });
