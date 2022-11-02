@@ -49,8 +49,6 @@ const CarBlueTitleH2 = styled.h2``;
 
 const CarInfoList = styled.ul``;
 
-const CarInfoItem = styled.li``;
-
 const CarInfoH2 = styled.h2``;
 
 const CarInfoParagraph = styled.p``;
