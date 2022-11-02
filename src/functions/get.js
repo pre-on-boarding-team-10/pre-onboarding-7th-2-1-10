@@ -43,6 +43,16 @@ export const getAppearingCarList = (responseData = []) => {
       segment: getSegmentName(list.attribute.segment),
       fuelType: getFuelTypeName(list.attribute.fuelType),
     },
+    isNewCar: getIsNewCar(list.createdAt),
     startDate: getStartDate(list.startDate),
   }));
+};
+
+export const getIsNewCar = responseDate => {
+  const origin = new Date(responseDate);
+  const today = new Date();
+
+  const diffTime = today.getTime() - origin.getTime();
+
+  return Number(Math.abs(diffTime / (1000 * 60 * 60 * 24)).toFixed(0)) <= 1;
 };

@@ -13,7 +13,7 @@ const MainCarList = () => {
   useEffect(() => {
     getCarList(segment);
   }, [segment]);
-  console.log('carListStates', carListStates);
+
   return (
     <MainCarListLayout>
       <CategorySection>
@@ -48,7 +48,10 @@ const MainCarList = () => {
                     <Paragraph>월 {car?.amount}원 부터</Paragraph>
                   </DescriptionBox>
                 </ContentBox>
-                <ImageBox></ImageBox>
+                <ImageBox>
+                  <img src={car?.attribute?.imageUrl} alt="thumbnail" />
+                </ImageBox>
+                {car?.isNewCar && <NewTagSpan>신규</NewTagSpan>}
               </CarCardItem>
             </Link>
           ))}
@@ -81,3 +84,5 @@ const ImageBox = styled.div``;
 const TitleH1 = styled.h1``;
 
 const Paragraph = styled.p``;
+
+const NewTagSpan = styled.span``;
