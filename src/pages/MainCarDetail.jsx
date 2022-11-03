@@ -114,7 +114,7 @@ const MainCarDetail = () => {
 
 export default MainCarDetail;
 
-const MainCarDetailLayout = styled.main``;
+const MainCarDetailLayout = styled.article``;
 
 const ImageBox = styled.div`
   width: 100%;
