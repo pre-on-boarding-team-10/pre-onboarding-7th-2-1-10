@@ -69,29 +69,41 @@ const MainCarDetail = () => {
             </CarInfoList>
             <CarBlueTitleH2>보험</CarBlueTitleH2>
             <CarInfoList>
-              {carDetail?.insurance?.map(insuranceElement => {
-                return (
-                  <FlexBox justifyContent="space-between" alignItems="center">
-                    <CarInfoH2>{insuranceElement?.name}</CarInfoH2>
-                    <CarInfoParagraph>
-                      {insuranceElement?.description}
-                    </CarInfoParagraph>
-                  </FlexBox>
-                );
-              })}
+              {carDetail?.insurance?.map(
+                (insuranceElement, insuranceElementIdx) => {
+                  return (
+                    <FlexBox
+                      key={`${insuranceElement.name}${insuranceElementIdx}`}
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <CarInfoH2>{insuranceElement?.name}</CarInfoH2>
+                      <CarInfoParagraph>
+                        {insuranceElement?.description}
+                      </CarInfoParagraph>
+                    </FlexBox>
+                  );
+                }
+              )}
             </CarInfoList>
             <CarBlueTitleH2>추가상품</CarBlueTitleH2>
             <CarInfoList>
-              {carDetail?.additionalProducts?.map(additionalProduct => {
-                return (
-                  <FlexBox justifyContent="space-between" alignItems="center">
-                    <CarInfoH2>{additionalProduct?.name}</CarInfoH2>
-                    <CarInfoParagraph>
-                      월 {additionalProduct?.amount} 원
-                    </CarInfoParagraph>
-                  </FlexBox>
-                );
-              })}
+              {carDetail?.additionalProducts?.map(
+                (additionalProduct, additionalProductIdx) => {
+                  return (
+                    <FlexBox
+                      key={`${additionalProduct.name}${additionalProductIdx}`}
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <CarInfoH2>{additionalProduct?.name}</CarInfoH2>
+                      <CarInfoParagraph>
+                        월 {additionalProduct?.amount} 원
+                      </CarInfoParagraph>
+                    </FlexBox>
+                  );
+                }
+              )}
             </CarInfoList>
           </CarInfoListRow>
         </MainCarDetailLayout>
