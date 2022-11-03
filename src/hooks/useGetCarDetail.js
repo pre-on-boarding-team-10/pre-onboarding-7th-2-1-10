@@ -34,7 +34,7 @@ const useGetCarDetail = () => {
   const getCarDetail = pathId => {
     dispatch({ type: ACTIONS.GET_CAR_DETAIL_LOADING });
     const currentCarDetail =
-      carList.find(list => list.id === Number(pathId)) || null;
+      carList?.find(list => list.id === Number(pathId)) || null;
     dispatch({
       type: ACTIONS.GET_CAR_DETAIL_SUCCESS,
       isCarListLoading: carListStates.isLoading,

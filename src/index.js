@@ -1,14 +1,13 @@
 import React from 'react';
-import { hydrate, render } from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from 'styled-components';
 import Router from './router';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
-// const rootElement = document.getElementById('root');
-
-// const root = ReactDOM.createRoot(rootElement);
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
 
 const App = () => {
   return (
@@ -21,9 +20,8 @@ const App = () => {
   );
 };
 
-const rootElement = document.getElementById('root');
-if (rootElement.hasChildNodes()) {
-  hydrate(<App />, rootElement);
+if (container.hasChildNodes()) {
+  ReactDOM.hydrateRoot(container, <App />);
 } else {
-  render(<App />, rootElement);
+  root.render(<App />);
 }
