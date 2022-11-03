@@ -38,6 +38,7 @@ export default CarListItem;
 const CarCardItem = styled.li`
   ${FlexStyle}
   padding: 3rem 3.6rem;
+  min-width: 32.8rem;
   border-radius: 15px;
   box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
   background: rgba(255, 255, 255, 0.1);
@@ -83,6 +84,7 @@ const TitleH1 = styled.h1`
 const Paragraph = styled.p`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.WHITE};
+  white-space: nowrap;
 `;
 
 const NewTagSpan = styled.span`
