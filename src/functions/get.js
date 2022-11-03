@@ -33,6 +33,15 @@ export const getStartDate = (dateArgument = '') => {
   }
 };
 
+export const getIsNewCar = responseDate => {
+  const origin = new Date(responseDate);
+  const today = new Date();
+
+  const diffTime = today.getTime() - origin.getTime();
+
+  return Number(Math.abs(diffTime / (1000 * 60 * 60 * 24)).toFixed(0)) <= 1;
+};
+
 export const getAppearingCarList = (responseData = []) => {
   return responseData?.map(list => ({
     ...list,
@@ -48,11 +57,33 @@ export const getAppearingCarList = (responseData = []) => {
   }));
 };
 
-export const getIsNewCar = responseDate => {
-  const origin = new Date(responseDate);
-  const today = new Date();
-
-  const diffTime = today.getTime() - origin.getTime();
-
-  return Number(Math.abs(diffTime / (1000 * 60 * 60 * 24)).toFixed(0)) <= 1;
+export const getCardInfoHeaderList = (carDetail = null) => {
+  if (carDetail) {
+    return [
+      {
+        title: '차량 정보',
+        descriptions: [
+          { name: '차종', data: carDetail?.attribute?.segment },
+          { name: '연료', data: carDetail?.attribute?.fuelType },
+          { name: '이용 가능일', data: carDetail?.startDate },
+        ],
+      },
+      {
+        title: '보험',
+        descriptions: carDetail?.insurance?.map(insuranceItem => ({
+          name: insuranceItem.name,
+          data: insuranceItem.description,
+        })),
+      },
+      {
+        title: '추가상품',
+        descriptions: carDetail?.additionalProducts?.map(productItem => ({
+          name: productItem.name,
+          data: `월 ${productItem.amount} 원`,
+        })),
+      },
+    ];
+  } else {
+    return null;
+  }
 };
