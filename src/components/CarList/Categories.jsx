@@ -4,7 +4,6 @@ import { CARS_SEGMENT_CATEGORIES } from '../../constant/mock';
 import { FlexStyle } from '../../styles/common';
 
 const Categories = props => {
-  console.log('props.segment', props.segment);
   return (
     <CategorySection alignItems="center" gap="1rem">
       {CARS_SEGMENT_CATEGORIES.map((categories, categoriesIdx) => {

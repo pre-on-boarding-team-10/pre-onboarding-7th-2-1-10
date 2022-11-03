@@ -36,7 +36,7 @@ const RootLayoutSection = styled.section`
 const MainLayout = styled.main`
   max-width: 45rem;
   margin: 0 auto;
-  margin-top: 6.2rem;
+  margin-top: 8rem;
 
   &::before {
     content: '';

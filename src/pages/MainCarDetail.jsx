@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import EmptyDataPage from '../components/EmptyDataPage';
 import LoadingPage from '../components/LoadingPage';
 import SEOMetaTags from '../components/SEOMetaTags';
 import useGetCarDetail from '../hooks/useGetCarDetail';
-import { FlexBox } from '../styles/common';
+import { FlexBox, FlexStyle } from '../styles/common';
 
 const MainCarDetail = () => {
   const { pathId } = useParams();
@@ -36,20 +35,20 @@ const MainCarDetail = () => {
         <EmptyDataPage />
       )}
       {!carDetailStates.isLoading && !carDetailStates.noData && (
-        <MainCarDetailLayout>
+        <MainCarDetailLayout flexDirection="column" gap="2rem">
           <ImageBox>
             <img src={carDetail?.attribute?.imageUrl} alt="car-thumbnail" />
           </ImageBox>
-          <CarModelSection>
-            <FlexBox flexDirection="column">
+          <CarModelSection flexDirection="column" gap="0.8rem">
+            <FlexBox flexDirection="column" gap="0.4rem">
               <BrandH2>{carDetail?.attribute?.brand}</BrandH2>
               <NameH1>{carDetail?.attribute?.name}</NameH1>
             </FlexBox>
-            <AmountParagraph>월 {carDetail?.amount}</AmountParagraph>
+            <AmountParagraph>월 {carDetail?.amount} 원</AmountParagraph>
           </CarModelSection>
-          <CarInfoListRow>
+          <CarInfoListRow flexDirection="column" gap="2rem">
             <CarBlueTitleH2>차량 정보</CarBlueTitleH2>
-            <CarInfoList>
+            <CarInfoList flexDirection="column" gap="0.6rem">
               <FlexBox justifyContent="space-between" alignItems="center">
                 <CarInfoH2>차종</CarInfoH2>
                 <CarInfoParagraph>
@@ -68,7 +67,7 @@ const MainCarDetail = () => {
               </FlexBox>
             </CarInfoList>
             <CarBlueTitleH2>보험</CarBlueTitleH2>
-            <CarInfoList>
+            <CarInfoList flexDirection="column" gap="0.6rem">
               {carDetail?.insurance?.map(
                 (insuranceElement, insuranceElementIdx) => {
                   return (
@@ -87,7 +86,7 @@ const MainCarDetail = () => {
               )}
             </CarInfoList>
             <CarBlueTitleH2>추가상품</CarBlueTitleH2>
-            <CarInfoList>
+            <CarInfoList flexDirection="column" gap="0.6rem">
               {carDetail?.additionalProducts?.map(
                 (additionalProduct, additionalProductIdx) => {
                   return (
@@ -114,32 +113,85 @@ const MainCarDetail = () => {
 
 export default MainCarDetail;
 
-const MainCarDetailLayout = styled.article``;
+const MainCarDetailLayout = styled.article`
+  ${FlexStyle}
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  margin-bottom: 1.8rem;
+  padding: 4rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+`;
 
 const ImageBox = styled.div`
   width: 100%;
-  height: 20rem;
+  min-width: 32.7rem;
+  height: 25rem;
 
   > img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 `;
 
-const CarModelSection = styled.section``;
+const CarModelSection = styled.section`
+  ${FlexStyle}
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.WHITE};
+`;
 
 const BrandH2 = styled.h2``;
 
 const NameH1 = styled.h1``;
 
-const AmountParagraph = styled.p``;
+const AmountParagraph = styled.p`
+  align-self: flex-end;
+`;
 
-const CarInfoListRow = styled.section``;
+const CarInfoListRow = styled.section`
+  ${FlexStyle}
+`;
 
-const CarBlueTitleH2 = styled.h2``;
+const CarBlueTitleH2 = styled.h2`
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  background: -webkit-linear-gradient(#2196f3, #e91e63);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
 
-const CarInfoList = styled.ul``;
+  &::before {
+    content: '';
+    height: 1px;
+    flex-grow: 1;
+    margin-right: 1.6rem;
+    background: linear-gradient(#2196f3, #e91e63);
+  }
+  &::after {
+    content: '';
+    height: 1px;
+    flex-grow: 1;
+    margin-left: 1.6rem;
+    background: linear-gradient(#2196f3, #e91e63);
+  }
+`;
 
-const CarInfoH2 = styled.h2``;
+const CarInfoList = styled.ul`
+  ${FlexStyle}
+`;
 
-const CarInfoParagraph = styled.p``;
+const CarInfoH2 = styled.h2`
+  font-size: 1.6rem;
+  color: ${({ theme }) => theme.colors.WHITE};
+  font-weight: 600;
+`;
+
+const CarInfoParagraph = styled.p`
+  font-size: 1.6rem;
+  color: ${({ theme }) => theme.colors.WHITE};
+  font-weight: 600;
+`;
