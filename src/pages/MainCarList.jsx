@@ -26,10 +26,10 @@ const MainCarList = () => {
         image={carList?.[0]?.attribute?.imageUrl}
       />
       <MainCarListSection>
+        <Categories segment={segment} setSegment={setSegment} />
+
         {carListStates.isLoading && <LoadingPage />}
         {carListStates.noData && <EmptyDataPage />}
-
-        <Categories segment={segment} setSegment={setSegment} />
         {!carListStates.isLoading && !carListStates.noData && (
           <CarList flexDirection="column" gap="1rem">
             {carList?.map(carItem => (
