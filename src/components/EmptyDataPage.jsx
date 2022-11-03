@@ -15,6 +15,7 @@ export default EmptyDataPage;
 const EmptyDataPageLayout = styled.section`
   ${FlexStyle}
   height: calc(100vh - 6.2rem - 7.4rem);
+  z-index: 3;
 `;
 
 const Paragraph = styled.p`

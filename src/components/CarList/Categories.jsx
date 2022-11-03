@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { CARS_SEGMENT_CATEGORIES } from '../../constant/mock';
 import useXDragScroll from '../../hooks/useXDragScroll';

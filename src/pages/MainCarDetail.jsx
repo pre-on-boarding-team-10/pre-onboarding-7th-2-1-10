@@ -8,7 +8,6 @@ import useGetCarDetail from '../hooks/useGetCarDetail';
 
 const MainCarDetail = () => {
   const { pathId } = useParams();
-
   const {
     carDetail,
     getCarDetail,
@@ -26,7 +25,7 @@ const MainCarDetail = () => {
         title={`[${carDetail?.attribute?.brand}] ${carDetail?.attribute?.name}`}
         keywords={`${carDetail?.attribute?.brand}, ${carDetail?.attribute?.name}`}
         ogSiteName="차량 정보 Website"
-        description={`[${carDetail?.attribute?.brand}] ${carDetail?.attribute?.name} 차량 정보입니다.`}
+        description={`월 ${carDetail?.amount} 원`}
         image={carDetail?.attribute?.imageUrl}
       />
       {carDetailStates.isLoading && <LoadingPage />}
