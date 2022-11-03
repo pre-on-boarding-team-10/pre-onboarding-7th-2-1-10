@@ -1,41 +1,62 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import EmptyDataPage from '../components/EmptyDataPage';
+import LoadingPage from '../components/LoadingPage';
+import { CARS_SEGMENT_CATEGORIES } from '../constant/mock';
+import useGetCarList from '../hooks/useGetCarList';
 
 const MainCarList = () => {
+  const { carList, getCarList, states: carListStates } = useGetCarList();
+  const [segment, setSegment] = useState('');
+
+  useEffect(() => {
+    getCarList(segment);
+  }, [segment]);
+
   return (
     <MainCarListLayout>
       <CategorySection>
-        <CategoryButton type="button">전체</CategoryButton>
-        <CategoryButton type="button">대형</CategoryButton>
-        <CategoryButton type="button">중형</CategoryButton>
-        <CategoryButton type="button">소형</CategoryButton>
-        <CategoryButton type="button">소형</CategoryButton>
-        <CategoryButton type="button">소형</CategoryButton>
-        <CategoryButton type="button">소형</CategoryButton>
-        <CategoryButton type="button">소형</CategoryButton>
+        {CARS_SEGMENT_CATEGORIES.map((categories, categoriesIdx) => {
+          return (
+            <CategoryButton
+              type="button"
+              key={categoriesIdx}
+              onClick={() => setSegment(categories.value)}
+            >
+              {categories.name}
+            </CategoryButton>
+          );
+        })}
       </CategorySection>
-      <CarList>
-        {Array(30)
-          .fill(0)
-          .map((_, idx) => (
-            <Link key={idx} to={`/cars/${1}`}>
+      {carListStates.isLoading && <LoadingPage />}
+      {carListStates.noData && <EmptyDataPage />}
+      {!carListStates.isLoading && !carListStates.noData && (
+        <CarList>
+          {carList?.map((car, idx) => (
+            <Link key={car.id} to={`/cars/${car.id}`}>
               <CarCardItem>
                 <ContentBox>
                   <TitleBox>
-                    <TitleH1>brand</TitleH1>
-                    <TitleH1>name</TitleH1>
+                    <TitleH1>{car?.attribute?.brand}</TitleH1>
+                    <TitleH1>{car?.attribute?.name}</TitleH1>
                   </TitleBox>
                   <DescriptionBox>
-                    <Paragraph>segment / fuelType</Paragraph>
-                    <Paragraph>월 amount원 부터</Paragraph>
+                    <Paragraph>
+                      {car?.attribute?.segment} / {car?.attribute?.fuelType}
+                    </Paragraph>
+                    <Paragraph>월 {car?.amount}원 부터</Paragraph>
                   </DescriptionBox>
                 </ContentBox>
-                <ImageBox></ImageBox>
+                <ImageBox>
+                  <img src={car?.attribute?.imageUrl} alt="thumbnail" />
+                </ImageBox>
+                {car?.isNewCar && <NewTagSpan>신규</NewTagSpan>}
               </CarCardItem>
             </Link>
           ))}
-      </CarList>
+        </CarList>
+      )}
     </MainCarListLayout>
   );
 };
@@ -63,3 +84,5 @@ const ImageBox = styled.div``;
 const TitleH1 = styled.h1``;
 
 const Paragraph = styled.p``;
+
+const NewTagSpan = styled.span``;
