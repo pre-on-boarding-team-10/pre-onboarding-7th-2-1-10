@@ -27,7 +27,7 @@
     "postbuild": "react-snap"
   },
   "reactSnap": {
-    "includes": [
+    "include": [
       "/",
       "/cars"
     ]
