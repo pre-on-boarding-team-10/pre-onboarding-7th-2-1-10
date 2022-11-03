@@ -54,7 +54,7 @@ npm install
 
 ### 배포 링크
 
-[배포링크 바로가기](https://private-pre-onboarding-7th-2-1-10.vercel.app/)
+[배포링크 바로가기](https://pre-onboarding-7th-2-1-10.vercel.app/)
 
 <br/>
 
