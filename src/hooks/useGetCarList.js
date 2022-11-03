@@ -1,13 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getCarListAPI } from '../api';
 import { ACTIONS } from '../constant/action';
-import {
-  getAdditionalProducts,
-  getAppearingCarList,
-  getFuelTypeName,
-  getSegmentName,
-  getStartDate,
-} from '../functions/get';
+import { getAppearingCarList } from '../functions/get';
 
 const useGetCarList = () => {
   const [states, setStates] = useState({
@@ -46,7 +40,7 @@ const useGetCarList = () => {
     }
   };
 
-  const getCarList = async (segment = '') => {
+  const getCarList = useCallback(async (segment = '') => {
     try {
       dispatch({ type: ACTIONS.GET_CAR_LIST_LOADING });
       const response = await getCarListAPI({ segment });
@@ -59,7 +53,7 @@ const useGetCarList = () => {
       dispatch({ type: ACTIONS.GET_CAR_LIST_ERROR });
       setCarList(err?.response);
     }
-  };
+  }, []);
 
   return { states, carList, getCarList };
 };

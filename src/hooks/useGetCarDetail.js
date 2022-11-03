@@ -12,7 +12,7 @@ const useGetCarDetail = () => {
 
   useEffect(() => {
     getCarList();
-  }, []);
+  }, [getCarList]);
 
   const dispatch = (action = '') => {
     switch (action.type) {

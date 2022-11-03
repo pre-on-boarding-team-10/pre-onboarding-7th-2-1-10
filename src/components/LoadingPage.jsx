@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FlexStyle } from '../styles/common';
 
 const LoadingPage = () => {
   return (
-    <LoadingPageLayout>
+    <LoadingPageLayout justifyContent="center" alignItems="center">
       <Spinner />
     </LoadingPageLayout>
   );
@@ -11,7 +12,10 @@ const LoadingPage = () => {
 
 export default LoadingPage;
 
-const LoadingPageLayout = styled.section``;
+const LoadingPageLayout = styled.section`
+  ${FlexStyle}
+  height: calc(100vh - 6.2rem - 7.4rem);
+`;
 
 const Spinner = styled.div`
   width: 6rem;
