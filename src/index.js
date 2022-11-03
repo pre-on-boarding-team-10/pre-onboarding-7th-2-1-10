@@ -1,5 +1,4 @@
 import React from 'react';
-import { hydrate } from 'react-dom';
 import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from 'styled-components';
@@ -8,6 +7,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
 const rootElement = document.getElementById('root');
+
 const root = ReactDOM.createRoot(rootElement);
 
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
 };
 
 if (rootElement.hasChildNodes()) {
-  hydrate(<App />, rootElement);
+  ReactDOM.hydrateRoot(<App />, rootElement);
 } else {
   root.render(<App />);
 }
